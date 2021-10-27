@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Lottery  is Ownable {
 
-    address _owner;
+    address public _owner;
     address public winner;
     uint256 public expiration; 
     
@@ -69,6 +69,7 @@ contract Lottery  is Ownable {
         
         emit LotteryEnded(winner, totalPrize);
     }
+
 
     function _generateTicket() private returns (uint) {
         uint _ticketId = numberOfTickets + 1;
