@@ -21,6 +21,10 @@ export default function Expiration() {
     }, []);
   
     return (
-      <div>Lottery Expiration: { expire }</div>
+      <p>
+      <div>Lottery Expiration</div>
+      <div>{ expire }</div>
+      </p>
+
     )
 }

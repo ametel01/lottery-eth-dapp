@@ -20,6 +20,6 @@ export default function Owner() {
     }, []);
   
     return (
-      <div>Lottery Owner: { owner }</div>
+      <p>Lottery Owner: { owner }</p>
     )    
 }

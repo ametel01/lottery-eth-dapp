@@ -15,6 +15,8 @@ contract Lottery  is Ownable {
 
     mapping(uint => address) public ticketToOwner;
     mapping(address => uint) public ownerTicketsCount;
+    mapping(address => uint[]) public ownerToTickets;
+
 
     uint  constant public _ticketPrice = 1e9 gwei;
     uint public totalPrize;
@@ -23,6 +25,7 @@ contract Lottery  is Ownable {
     
     event PaymentReceived(address from, uint256 amount);
     event LotteryEnded(address _winner, uint prize);
+    event TicketSold(address buyer, uint ticketId);
     
     error LotteryNotYetEnded();
     error LotteryEndAlreadyCalled();
@@ -33,6 +36,12 @@ contract Lottery  is Ownable {
          _owner = msg.sender;
          expiration = block.timestamp + duration;
          
+    }
+
+    function showMyTickets(address user) external view returns (uint[] memory) {
+        require(msg.sender == user|| msg.sender == _owner);
+
+        return ownerToTickets[user];
     }
 
    
@@ -54,6 +63,8 @@ contract Lottery  is Ownable {
         
         uint newTicket = _generateTicket();
         ticketToOwner[newTicket] = msg.sender;
+        ownerToTickets[msg.sender].push(newTicket); 
+        emit TicketSold(msg.sender, newTicket);
     }
     
     
